@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:game_of_life/gol/globals.dart';
 
 class LifeController {
   LifeController({
-    required this.milliseconds,
     required this.cellSize,
     required this.gridSize,
     required this.controlsSize,
@@ -20,8 +20,6 @@ class LifeController {
   final double cellSize;
   final Size gridSize;
   final Size controlsSize;
-
-  final int milliseconds;
 
   late List<List<int>> cells;
   late List<List<int>> backBuffer;

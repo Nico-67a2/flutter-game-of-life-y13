@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/gol.dart';
-import 'package:game_of_life/gol/life_controller.dart';
 import 'package:game_of_life/gol/color_picker.dart';
+import 'package:game_of_life/gol/globals.dart';
 
 class LifeControls extends StatefulWidget {
   const LifeControls({
@@ -18,8 +18,8 @@ class LifeControls extends StatefulWidget {
 }
 
 class _LifeControlsState extends State<LifeControls> {
-  late int ticks = 0;
-  double _value =  0;
+  int ticks = 0;
+  int _value = 0;
 
   @override
   void initState() {
@@ -71,19 +71,24 @@ class _LifeControlsState extends State<LifeControls> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Icon(Icons.assist_walker),
+                  Icon(Icons.directions_run),
                   Slider(
                     min: 0.0,
-                    max: 500.0,
-                    value: _value,
+                    max: 2000.0,
+                    value: _value.toDouble(),
+                    divisions: 5,
+               // use label to see the value that will be added to starting_milliseconds
+               //     label: _value.round().toString(),
                     onChanged: (value) {
                       setState(() {
-                        _value = value;
-                   //     LifeController.milliseconds = LifeController.milliseconds - value;
+                        _value = value.toInt();
+                        milliseconds = (starting_milliseconds + value).toInt();
+                        // print to console so we can see values go up and down
+                        print("$milliseconds");
                       });
                     },
                   ),
-                  Icon(Icons.directions_run),
+                  Icon(Icons.assist_walker),
                 ],
               ),
               Row(

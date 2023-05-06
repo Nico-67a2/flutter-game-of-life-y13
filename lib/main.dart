@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/gol.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,10 +25,9 @@ class MyApp extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(border: Border.all()),
               child: GameOfLife(
-                milliseconds: 200,
                 cellSize: 14,
                 hideControls: false,
-                cellsColor: Colors.greenAccent,
+//                cellsColor: Colors.greenAccent,
               ),
             ),
           ),

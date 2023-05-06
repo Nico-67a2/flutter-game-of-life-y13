@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/gol.dart';
+import 'package:game_of_life/gol/globals.dart';
 
 class LifeGrid extends StatefulWidget {
   const LifeGrid({
     required this.controller,
-    required this.cellsColor,
+//    required this.cellsColor,
     required this.gridColor,
     required this.backgroundColor,
     Key? key,
   }) : super(key: key);
 
   final LifeController controller;
-  final Color cellsColor;
+//  final Color cellsColor;
   final Color gridColor;
   final Color backgroundColor;
 
@@ -41,7 +42,7 @@ class _LifeGridState extends State<LifeGrid> with TickerProviderStateMixin {
           r: widget.controller.rowsCount,
           c: widget.controller.columnsCount,
           cells: widget.controller.cells,
-          cellsColor: widget.cellsColor,
+          cellsColor: cellsColor,
           gridColor: widget.gridColor,
           backgroundColor: widget.backgroundColor,
         ),
