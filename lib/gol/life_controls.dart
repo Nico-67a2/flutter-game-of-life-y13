@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/gol.dart';
@@ -71,7 +72,7 @@ class _LifeControlsState extends State<LifeControls> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Icon(Icons.directions_run),
+                  Icon(Icons.assist_walker),
                   Slider(
                     min: 0.0,
                     max: 2000.0,
@@ -82,13 +83,12 @@ class _LifeControlsState extends State<LifeControls> {
                     onChanged: (value) {
                       setState(() {
                         _value = value.toInt();
-                        milliseconds = (starting_milliseconds + value).toInt();
-                        // print to console so we can see values go up and down
-                        print("$milliseconds");
+                        var milliseconds = context.read<RefreshRate>();
+                        milliseconds.update(_value);
                       });
                     },
                   ),
-                  Icon(Icons.assist_walker),
+                  Icon(Icons.directions_run),
                 ],
               ),
               Row(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/globals.dart';
@@ -39,7 +40,11 @@ class LifeController {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(milliseconds: milliseconds), (t) {
+
+    Consumer<RefreshRate>(
+        builder: (context, rate, child) {});
+
+    timer = Timer.periodic(Duration(milliseconds: rate), (t) {
       compute();
       callListeners();
     });

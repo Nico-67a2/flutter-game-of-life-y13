@@ -44,14 +44,12 @@ class _ColorPickerState extends State<ColorPicker> {
     Color.fromARGB(255, 128, 128, 128),
   ];
   double _colorSliderPosition = 0;
-  late double _shadeSliderPosition;
   late Color _currentColor;
 
   @override
   initState() {
     super.initState();
     _currentColor = _calculateSelectedColor(_colorSliderPosition);
-    _shadeSliderPosition = widget.width / 2; //center the shader selector
   }
 
   _colorChangeHandler(double position) {
@@ -67,16 +65,7 @@ class _ColorPickerState extends State<ColorPicker> {
       _currentColor = _calculateSelectedColor(_colorSliderPosition);
     });
   }
-
-  _shadeChangeHandler(double position) {
-    //handle out of bounds gestures
-    if (position > widget.width) position = widget.width;
-    if (position < 0) position = 0;
-    setState(() {
-      _shadeSliderPosition = position;
-    });
-  }
-
+  
   Color _calculateSelectedColor(double position) {
     //determine color
     double positionInColorArray =

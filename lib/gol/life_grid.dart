@@ -5,6 +5,7 @@ import 'package:game_of_life/gol/globals.dart';
 class LifeGrid extends StatefulWidget {
   const LifeGrid({
     required this.controller,
+//   color not passed as no longer static
 //    required this.cellsColor,
     required this.gridColor,
     required this.backgroundColor,
@@ -12,6 +13,7 @@ class LifeGrid extends StatefulWidget {
   }) : super(key: key);
 
   final LifeController controller;
+// color not needed as no passed
 //  final Color cellsColor;
   final Color gridColor;
   final Color backgroundColor;

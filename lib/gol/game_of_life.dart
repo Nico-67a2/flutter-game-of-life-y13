@@ -75,6 +75,7 @@ class _GameOfLifeState extends State<GameOfLife> {
                     Expanded(
                       child: LifeGrid(
                         controller: lifeController!,
+//  No longer a static color - you can use the slider to choose the color cells are regenerated
 //                        cellsColor: widget.cellsColor,
                         gridColor: widget.gridColor,
                         backgroundColor: widget.backgroundColor,
