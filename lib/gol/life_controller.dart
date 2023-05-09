@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:provider/provider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/globals.dart';
+
 
 class LifeController {
   LifeController({
@@ -15,7 +14,7 @@ class LifeController {
 
     cells = emptyCells();
     backBuffer = emptyCells();
-    startTimer();
+    startTimer(refreshrate);
   }
 
   final double cellSize;
@@ -39,12 +38,8 @@ class LifeController {
     callListeners();
   }
 
-  void startTimer() {
-
-    Consumer<RefreshRate>(
-        builder: (context, rate, child) {});
-
-    timer = Timer.periodic(Duration(milliseconds: rate), (t) {
+  void startTimer(int refreshrate) {
+    timer = Timer.periodic(Duration(milliseconds:  refreshrate), (t) {
       compute();
       callListeners();
     });

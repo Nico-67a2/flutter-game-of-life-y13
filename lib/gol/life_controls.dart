@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/gol.dart';
 import 'package:game_of_life/gol/color_picker.dart';
 import 'package:game_of_life/gol/globals.dart';
+
 
 class LifeControls extends StatefulWidget {
   const LifeControls({
@@ -49,7 +49,7 @@ class _LifeControlsState extends State<LifeControls> {
                     onPressed: () => {
                       widget.controller.timer.isActive
                           ? widget.controller.interruptTimer()
-                          : widget.controller.startTimer()
+                          : widget.controller.startTimer(refreshrate)
                     },
                     icon: Icon(widget.controller.timer.isActive
                         ? Icons.stop
@@ -83,8 +83,9 @@ class _LifeControlsState extends State<LifeControls> {
                     onChanged: (value) {
                       setState(() {
                         _value = value.toInt();
-                        var milliseconds = context.read<RefreshRate>();
-                        milliseconds.update(_value);
+                        refreshrate = startingmilliseconds - _value;
+                        widget.controller.interruptTimer();
+                        widget.controller.startTimer(refreshrate);
                       });
                     },
                   ),
