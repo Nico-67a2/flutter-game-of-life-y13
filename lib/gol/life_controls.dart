@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/gol.dart';
 import 'package:game_of_life/gol/color_picker.dart';
 import 'package:game_of_life/gol/globals.dart';
+import 'package:game_of_life/open_tab.dart';
 
 
 class LifeControls extends StatefulWidget {
@@ -97,6 +98,12 @@ class _LifeControlsState extends State<LifeControls> {
                   children: [
                     ColorPicker(300)
                 ]
+              ),
+              Center(
+                child: TextButton(
+                  child: const Text('About Conways Game of Life', style: TextStyle(fontSize: 15)),
+                  onPressed: () => launchURL(context),
+                ),
               ),
             ],
           ),
