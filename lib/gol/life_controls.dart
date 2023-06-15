@@ -45,7 +45,8 @@ class _LifeControlsState extends State<LifeControls> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton.icon(
-                onPressed: () => {
+                onPressed: () =>
+                {
                   widget.controller.timer.isActive
                       ? widget.controller.interruptTimer()
                       : widget.controller.startTimer(refreshrate)
@@ -54,12 +55,14 @@ class _LifeControlsState extends State<LifeControls> {
                     ? Icons.stop
                     : Icons.play_arrow),
                 label:
-                    Text(widget.controller.timer.isActive ? 'STOP' : 'START'),
+                Text(widget.controller.timer.isActive ? 'STOP' : 'START'),
+                key: Key('start_stop'),
               ),
               TextButton.icon(
                 onPressed: () => widget.controller.clear(),
                 icon: const Icon(Icons.clear),
                 label: const Text('CLEAR'),
+                key: Key('clear'),
               ),
               TextButton.icon(
                 onPressed: () {
@@ -89,6 +92,7 @@ class _LifeControlsState extends State<LifeControls> {
                 },
                 icon: const Icon(Icons.exit_to_app),
                 label: const Text('EXIT'),
+                key: Key('exit'),
               ),
             ],
           ),
