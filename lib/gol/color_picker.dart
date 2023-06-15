@@ -1,3 +1,7 @@
+// color picker uses a slider that allows users to pick a color
+// this was created using https://medium.com/@mhstoller.it/how-i-made-a-custom-color-picker-slider-using-flutter-and-dart-e2350ec693a1
+// not all the features of that solution were implemented as they were not required
+
 import 'package:flutter/material.dart';
 import 'package:game_of_life/gol/globals.dart';
 
@@ -26,6 +30,8 @@ class ColorPicker extends StatefulWidget {
   @override
   _ColorPickerState createState() => _ColorPickerState();
 }
+
+// list of colors that appear on the picker
 
 class _ColorPickerState extends State<ColorPicker> {
   final List<Color> _colors = [

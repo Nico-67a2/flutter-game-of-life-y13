@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:game_of_life/gol/gol.dart';
 import 'package:game_of_life/gol/color_picker.dart';
 import 'package:game_of_life/gol/globals.dart';
 import 'package:game_of_life/open_tab.dart';
-
 
 class LifeControls extends StatefulWidget {
   const LifeControls({
@@ -36,99 +34,104 @@ class _LifeControlsState extends State<LifeControls> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-        child:
-          Column(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  TextButton.icon(
-                    onPressed: () => {
-                      widget.controller.timer.isActive
-                          ? widget.controller.interruptTimer()
-                          : widget.controller.startTimer(refreshrate)
-                    },
-                    icon: Icon(widget.controller.timer.isActive
-                        ? Icons.stop
-                        : Icons.play_arrow),
-                    label: Text(
-                        widget.controller.timer.isActive ? 'STOP' : 'START'),
-                  ),
-                  TextButton.icon(
-                    onPressed: () => widget.controller.clear(),
-                    icon: const Icon(Icons.clear),
-                    label: const Text('CLEAR'),
-                  ),
-                  TextButton.icon(
-                    onPressed: () {
-                      if (kIsWeb) {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Feature Not Supported'),
-                            content: const Text('This button only works in apps and not in browser version of this game'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, 'OK'),
-                                child: const Text('OK'),
-                              ),
-                            ],
+              TextButton.icon(
+                onPressed: () => {
+                  widget.controller.timer.isActive
+                      ? widget.controller.interruptTimer()
+                      : widget.controller.startTimer(refreshrate)
+                },
+                icon: Icon(widget.controller.timer.isActive
+                    ? Icons.stop
+                    : Icons.play_arrow),
+                label:
+                    Text(widget.controller.timer.isActive ? 'STOP' : 'START'),
+              ),
+              TextButton.icon(
+                onPressed: () => widget.controller.clear(),
+                icon: const Icon(Icons.clear),
+                label: const Text('CLEAR'),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  // we need to determine if the program is running on a mobile or on the web using the
+                  // kIsWeb function - this return boolean
+                  if (kIsWeb) {
+                    // true is returned - running on web
+                    showDialog<String>(
+                      // show a dialog box
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Feature Not Supported'),
+                        content: const Text(
+                            'This button only works in apps and not in browser version of this game'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
                           ),
-                        );
-                      } else {
-                        // NOT running on the web! You can check for additional platforms here.
-                        print("app.closed");
-                        exit(0);
-                      }
-                     },
-                    icon: const Icon(Icons.exit_to_app),
-                    label: const Text('EXIT'),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(Icons.assist_walker),
-                  Slider(
-                    min: 0.0,
-                    max: 2000.0,
-                    value: _value.toDouble(),
-                    divisions: 5,
-               // use label to see the value that will be added to starting_milliseconds
-               //     label: _value.round().toString(),
-                    onChanged: (value) {
-                      setState(() {
-                        _value = value.toInt();
-                        refreshrate = startingmilliseconds - _value;
-                        widget.controller.interruptTimer();
-                        widget.controller.startTimer(refreshrate);
-                      });
-                    },
-                  ),
-                  Icon(Icons.directions_run),
-                ],
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ColorPicker(300)
-                ]
-              ),
-              Center(
-                child: TextButton(
-                  child: const Text('About Conways Game of Life', style: TextStyle(fontSize: 15)),
-                  onPressed: () => launchURL(context),
-                ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    // NOT running on the web! You can check for additional platforms here.
+                    exit(0);
+                  }
+                },
+                icon: const Icon(Icons.exit_to_app),
+                label: const Text('EXIT'),
               ),
             ],
           ),
-        );
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(Icons.assist_walker),
+              Slider(
+                min: 0.0,
+                max: 2000.0,
+                // get the value from the slider position - convert to double
+                value: _value.toDouble(),
+                divisions: 5,
+                // set the value only when the slider moves
+                onChanged: (value) {
+                  setState(() {
+                    _value = value.toInt();
+                    // update the refresh rate
+                    refreshrate = startingmilliseconds - _value;
+                    // stop the painter
+                    widget.controller.interruptTimer();
+                    // restart the painter using the new refresh rate
+                    widget.controller.startTimer(refreshrate);
+                  });
+                },
+              ),
+              Icon(Icons.directions_run),
+            ],
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            // draw color picker - implemented in color_picker.dart
+            ColorPicker(300)
+          ]),
+          Center(
+            child: TextButton(
+              // this button opens a browser that goes to wiki page
+              child: const Text('About Conways Game of Life',
+                  style: TextStyle(fontSize: 15)),
+              onPressed: () => launchURL(context),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
