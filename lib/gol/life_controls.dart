@@ -1,6 +1,8 @@
+import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:game_of_life/gol/gol.dart';
 import 'package:game_of_life/gol/color_picker.dart';
 import 'package:game_of_life/gol/globals.dart';
@@ -64,7 +66,27 @@ class _LifeControlsState extends State<LifeControls> {
                     label: const Text('CLEAR'),
                   ),
                   TextButton.icon(
-                    onPressed: () => exit(0),
+                    onPressed: () {
+                      if (kIsWeb) {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Feature Not Supported'),
+                            content: const Text('This button only works in apps and not in browser version of this game'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        // NOT running on the web! You can check for additional platforms here.
+                        print("app.closed");
+                        exit(0);
+                      }
+                     },
                     icon: const Icon(Icons.exit_to_app),
                     label: const Text('EXIT'),
                   ),
