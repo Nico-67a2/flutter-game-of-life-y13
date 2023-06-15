@@ -101,6 +101,7 @@ class _LifeControlsState extends State<LifeControls> {
             children: [
               Icon(Icons.assist_walker),
               Slider(
+                key: Key('refresh_slider'),
                 min: 0.0,
                 max: 2000.0,
                 // get the value from the slider position - convert to double
